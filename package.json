@@ -1,0 +1,56 @@
+{
+	"name": "retold-sample-data",
+	"version": "1.0.0",
+	"description": "Sample data and schemas for the Retold bookstore test harness",
+	"main": "source/Retold-Sample-Data.js",
+	"scripts": {
+		"start": "node source/Retold-Sample-Data.js",
+		"test": "npx quack test",
+		"tests": "./node_modules/mocha/bin/_mocha -u tdd -R spec --grep",
+		"coverage": "./node_modules/.bin/nyc --reporter=lcov --reporter=text-lcov ./node_modules/mocha/bin/_mocha -- -u tdd -R spec",
+		"build": "npx quack build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/stevenvelozo/retold-sample-data.git"
+	},
+	"keywords": [
+		"retold",
+		"sample",
+		"data",
+		"bookstore",
+		"test",
+		"harness"
+	],
+	"mocha": {
+		"diff": true,
+		"extension": [
+			"js"
+		],
+		"package": "./package.json",
+		"reporter": "spec",
+		"slow": "75",
+		"timeout": "5000",
+		"ui": "tdd",
+		"watch-files": [
+			"source/**/*.js",
+			"test/**/*.js"
+		],
+		"watch-ignore": [
+			"lib/vendor"
+		]
+	},
+	"dependencies": {
+		"fable-serviceproviderbase": "^3.0.19"
+	},
+	"devDependencies": {
+		"chai": "^6.2.2",
+		"quackage": "^1.0.59"
+	},
+	"author": "steven velozo <steven@velozo.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/stevenvelozo/retold-sample-data/issues"
+	},
+	"homepage": "https://github.com/stevenvelozo/retold-sample-data#readme"
+}
