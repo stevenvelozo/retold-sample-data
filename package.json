@@ -1,6 +1,6 @@
 {
 	"name": "retold-sample-data",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Sample data and schemas for the Retold bookstore test harness",
 	"main": "source/Retold-Sample-Data.js",
 	"scripts": {
@@ -45,6 +45,8 @@
 	},
 	"devDependencies": {
 		"chai": "^6.2.2",
+		"indoctrinate": "^1.0.10",
+		"pict-docuserve": "^0.0.32",
 		"quackage": "^1.0.59"
 	},
 	"author": "steven velozo <steven@velozo.com>",
