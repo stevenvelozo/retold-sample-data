@@ -8,18 +8,18 @@ Return the absolute filesystem path to the bundled bookstore schema directory in
 getBookstoreSchemaPath()
 ```
 
-**Returns:** `string` — an absolute path to `.../retold-sample-data/source/schemas/bookstore`.
+**Returns:** `string` -- an absolute path to `.../retold-sample-data/source/schemas/bookstore`.
 
 ## What It Does
 
-Joins `__dirname` (the directory of `Retold-Sample-Data.js` inside the installed package) with `'schemas', 'bookstore'`. No filesystem access — the path is computed, not resolved, so it's fast and doesn't throw.
+Joins `__dirname` (the directory of `Retold-Sample-Data.js` inside the installed package) with `'schemas', 'bookstore'`. No filesystem access -- the path is computed, not resolved, so it's fast and doesn't throw.
 
 ## Code Example
 
 ```javascript
 const _SampleData = _Fable.serviceManager.instantiateServiceProvider('RetoldSampleData');
 console.log(_SampleData.getBookstoreSchemaPath());
-// → /path/to/your-app/node_modules/retold-sample-data/source/schemas/bookstore
+// -> /path/to/your-app/node_modules/retold-sample-data/source/schemas/bookstore
 ```
 
 ## Code Example: Reading a File Not Covered by the Accessors
@@ -45,12 +45,12 @@ const libFS = require('fs');
 
 let tmpEntries = libFS.readdirSync(_SampleData.getBookstoreSchemaPath());
 console.log(tmpEntries);
-// → [ 'MeadowModel.json', 'Schema.json', 'meadow', 'sqlite_create' ]
+// -> [ 'MeadowModel.json', 'Schema.json', 'meadow', 'sqlite_create' ]
 ```
 
 ## Errors
 
-None — this method never throws. It's a pure path computation.
+None -- this method never throws. It's a pure path computation.
 
 ## When to Use It
 
@@ -60,6 +60,6 @@ None — this method never throws. It's a pure path computation.
 
 ## Related
 
-- [getMeadowModel](api-getMeadowModel.md) — reads `MeadowModel.json` inside this directory
-- [getSQLiteDDL](api-getSQLiteDDL.md) — reads the main DDL inside this directory
-- [getSeedDataSQL](api-getSeedDataSQL.md) — reads the main seed inside this directory
+- [getMeadowModel](api-getMeadowModel.md) -- reads `MeadowModel.json` inside this directory
+- [getSQLiteDDL](api-getSQLiteDDL.md) -- reads the main DDL inside this directory
+- [getSeedDataSQL](api-getSeedDataSQL.md) -- reads the main seed inside this directory

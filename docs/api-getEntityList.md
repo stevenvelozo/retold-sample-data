@@ -8,7 +8,7 @@ Return the array of entity names in the bookstore schema. Equivalent to `Object.
 getEntityList()
 ```
 
-**Returns:** `string[]` — an array of 12 entity names.
+**Returns:** `string[]` -- an array of 12 entity names.
 
 ## What It Returns
 
@@ -29,7 +29,7 @@ getEntityList()
 ]
 ```
 
-The order is the order they appear in `MeadowModel.json`, which roughly follows "foundational entities first, dependent entities after" (Customer → User → Book → Author → joins → stores → sales → reviews).
+The order is the order they appear in `MeadowModel.json`, which roughly follows "foundational entities first, dependent entities after" (Customer -> User -> Book -> Author -> joins -> stores -> sales -> reviews).
 
 ## What It Does
 
@@ -101,6 +101,6 @@ Throws if `MeadowModel.json` is missing or invalid, via the internal `getMeadowM
 
 ## Related
 
-- [getMeadowModel](api-getMeadowModel.md) — the underlying data this method reads from
-- [getMeadowSchema](api-getMeadowSchema.md) — fetch an individual entity by name from this list
-- [Entity Reference](entities.md) — per-entity column listing for each name in the list
+- [getMeadowModel](api-getMeadowModel.md) -- the underlying data this method reads from
+- [getMeadowSchema](api-getMeadowSchema.md) -- fetch an individual entity by name from this list
+- [Entity Reference](entities.md) -- per-entity column listing for each name in the list

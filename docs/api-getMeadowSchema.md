@@ -1,6 +1,6 @@
 # getMeadowSchema
 
-Read and parse an individual per-entity `MeadowSchema<Name>.json` file — the meadow package format that `meadow.loadFromPackageObject()` and `meadow-provider-offline.addEntity()` consume.
+Read and parse an individual per-entity `MeadowSchema<Name>.json` file -- the meadow package format that `meadow.loadFromPackageObject()` and `meadow-provider-offline.addEntity()` consume.
 
 ## Signature
 
@@ -12,7 +12,7 @@ getMeadowSchema(pEntityName)
 |-----------|------|-------------|
 | `pEntityName` | string | The entity name (e.g. `'Book'`, `'Author'`, `'BookAuthorJoin'`). Case-sensitive. Must match a file in `source/schemas/bookstore/meadow/MeadowSchema<Name>.json`. |
 
-**Returns:** `object` — the parsed meadow package schema with shape:
+**Returns:** `object` -- the parsed meadow package schema with shape:
 
 ```javascript
 {
@@ -31,7 +31,7 @@ getMeadowSchema(pEntityName)
 2. Reads the file with `fs.readFileSync`
 3. Parses the JSON and returns the object
 
-Like all the accessors, there's no caching — every call reads from disk. Since per-entity files are small and you usually only need each entity once, this is fine.
+Like all the accessors, there's no caching -- every call reads from disk. Since per-entity files are small and you usually only need each entity once, this is fine.
 
 ## Available Entity Names
 
@@ -72,7 +72,7 @@ tmpBookDAL.doReads('', 0, 10, (pError, pQuery, pBooks) =>
 
 ## Code Example: Bulk Loading Into `meadow-provider-offline`
 
-The most common pattern — iterate the entity list, read each schema, and hand them to `addEntities()`:
+The most common pattern -- iterate the entity list, read each schema, and hand them to `addEntities()`:
 
 ```javascript
 _Offline.initializeAsync(() =>
@@ -121,6 +121,6 @@ The entity name must match the filename capitalization exactly. `getMeadowSchema
 
 ## Related
 
-- [getEntityList](api-getEntityList.md) — list of valid entity names to pass here
-- [getMeadowModel](api-getMeadowModel.md) — the combined form (all entities in one object)
-- [Using With Meadow](using-with-meadow.md) — end-to-end recipes that use this method
+- [getEntityList](api-getEntityList.md) -- list of valid entity names to pass here
+- [getMeadowModel](api-getMeadowModel.md) -- the combined form (all entities in one object)
+- [Using With Meadow](using-with-meadow.md) -- end-to-end recipes that use this method

@@ -4,8 +4,8 @@ The module ships two SQL seed scripts inside `source/schemas/bookstore/sqlite_cr
 
 | File | Purpose | Size |
 |------|---------|------|
-| `BookStore-CreateSQLiteTables.sql` | DDL — `CREATE TABLE` for every entity | 222 lines |
-| `BookStore-SeedData.sql` | Main seed — populates every table with test rows | ~30,000 lines, 76 `INSERT`s |
+| `BookStore-CreateSQLiteTables.sql` | DDL -- `CREATE TABLE` for every entity | 222 lines |
+| `BookStore-SeedData.sql` | Main seed -- populates every table with test rows | ~30,000 lines, 76 `INSERT`s |
 | `BookStore-SeedData-Extended.sql` | Alternate smaller seed | 135 lines, 11 `INSERT`s |
 
 ## Main Seed Breakdown
@@ -25,7 +25,7 @@ After running `getSeedDataSQL()` against an empty database you have:
 | `BookStoreSaleItem` | 1 | Single line item on the sample transaction |
 | `Review` | 1 | Single sample review |
 
-The heavy skew toward books and authors is deliberate — graph-traversal tests need meaningful multiplicity on the `Book ↔ BookAuthorJoin ↔ Author` edge to exercise the solver. The other entities exist as one-row representatives so code paths are exercised but the test fixture stays small.
+The heavy skew toward books and authors is deliberate -- graph-traversal tests need meaningful multiplicity on the `Book <-> BookAuthorJoin <-> Author` edge to exercise the solver. The other entities exist as one-row representatives so code paths are exercised but the test fixture stays small.
 
 ## What Makes This Seed Useful
 
@@ -48,10 +48,10 @@ db.exec(_SampleData.getSeedDataSQL());
 
 // Verify
 let tmpBookCount = db.prepare('SELECT COUNT(*) as n FROM Book').get();
-console.log('Books loaded:', tmpBookCount.n); // → 22
+console.log('Books loaded:', tmpBookCount.n); // -> 22
 ```
 
-The seed isn't idempotent — don't run it twice in a row against the same database. Auto-increment primary keys would collide and the second run would throw. If you need to reset, drop and recreate the tables or use `DELETE FROM <table>` between runs.
+The seed isn't idempotent -- don't run it twice in a row against the same database. Auto-increment primary keys would collide and the second run would throw. If you need to reset, drop and recreate the tables or use `DELETE FROM <table>` between runs.
 
 ## Loading the Extended Seed Instead
 
@@ -121,11 +121,11 @@ function resetDatabase(pSampleData)
 }
 ```
 
-Since the database is `:memory:`, this is essentially free — no disk I/O, no teardown, just a fresh database each time.
+Since the database is `:memory:`, this is essentially free -- no disk I/O, no teardown, just a fresh database each time.
 
 ## Using the Seed With `meadow-provider-offline`
 
-The offline provider doesn't execute raw SQL directly — it uses the meadow DAL to insert records. The idiomatic way to get the seed data into offline mode is to:
+The offline provider doesn't execute raw SQL directly -- it uses the meadow DAL to insert records. The idiomatic way to get the seed data into offline mode is to:
 
 1. Parse the seed SQL to extract each entity's records, **or**
 2. Load the seed into a temporary sql.js database, query out each entity, then call `seedEntity()` or `injectRecords()` with the resulting arrays
@@ -168,10 +168,10 @@ The seed was hand-crafted alongside the schema and isn't regenerated from a sour
 1. Edit `source/schemas/bookstore/sqlite_create/BookStore-SeedData.sql` directly
 2. Make sure every `INSERT` sets `IDCustomer` to `1` (the single-tenant convention)
 3. Make sure every foreign key references a row that's inserted earlier in the same file
-4. Run the test suite — the module's tests validate the seed by loading it into sql.js and checking row counts
+4. Run the test suite -- the module's tests validate the seed by loading it into sql.js and checking row counts
 
 ## Related
 
-- [Schema Overview](schema.md) — the ER diagram showing which tables the seed populates
-- [Entity Reference](entities.md) — per-column detail for interpreting seed rows
-- [Using With Meadow](using-with-meadow.md) — integration recipes that depend on the seed
+- [Schema Overview](schema.md) -- the ER diagram showing which tables the seed populates
+- [Entity Reference](entities.md) -- per-column detail for interpreting seed rows
+- [Using With Meadow](using-with-meadow.md) -- integration recipes that depend on the seed

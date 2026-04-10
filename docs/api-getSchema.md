@@ -1,6 +1,6 @@
 # getSchema
 
-Read and parse `Schema.json` — the bookstore schema in the format `retold-data-service` consumes.
+Read and parse `Schema.json` -- the bookstore schema in the format `retold-data-service` consumes.
 
 ## Signature
 
@@ -17,7 +17,7 @@ getSchema()
 - `MeadowModel.json` is the canonical form for `meadow-graph-client` and `meadow-provider-offline`
 - `Schema.json` is the form `retold-data-service` expects
 
-In practice they contain essentially the same column definitions — the split exists to give each consumer a file it owns and can evolve independently without breaking the other.
+In practice they contain essentially the same column definitions -- the split exists to give each consumer a file it owns and can evolve independently without breaking the other.
 
 For new code you'll typically want `getMeadowModel()`. Use `getSchema()` specifically when feeding `retold-data-service`.
 
@@ -26,7 +26,7 @@ For new code you'll typically want `getMeadowModel()`. Use `getSchema()` specifi
 ```javascript
 let tmpSchema = _SampleData.getSchema();
 console.log('Entities in Schema.json:', Object.keys(tmpSchema.Tables));
-// → [ 'User', 'Customer', 'Book', 'Author', ... ]
+// -> [ 'User', 'Customer', 'Book', 'Author', ... ]
 ```
 
 ## Code Example: Feeding `retold-data-service`
@@ -67,6 +67,6 @@ Throws if `Schema.json` is missing or not valid JSON. In a normal `npm install` 
 
 ## Related
 
-- [getMeadowModel](api-getMeadowModel.md) — the `meadow-graph-client` variant
-- [getMeadowSchema](api-getMeadowSchema.md) — per-entity meadow package form
-- [API Reference](api-reference.md) — method index
+- [getMeadowModel](api-getMeadowModel.md) -- the `meadow-graph-client` variant
+- [getMeadowSchema](api-getMeadowSchema.md) -- per-entity meadow package form
+- [API Reference](api-reference.md) -- method index

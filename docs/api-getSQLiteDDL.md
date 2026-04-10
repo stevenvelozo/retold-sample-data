@@ -8,7 +8,7 @@ Return the raw `CREATE TABLE` SQL for the bookstore schema as a string. Use this
 getSQLiteDDL()
 ```
 
-**Returns:** `string` — the raw SQL, ~222 lines, covering all 12 entities.
+**Returns:** `string` -- the raw SQL, ~222 lines, covering all 12 entities.
 
 ## What's in the DDL
 
@@ -17,7 +17,7 @@ A sequence of `CREATE TABLE` statements, one per entity. Every table gets:
 - An `IDENTIFIER INTEGER PRIMARY KEY AUTOINCREMENT` column
 - Standard audit columns (`CreateDate`, `CreatingIDUser`, etc.)
 - The entity-specific business columns
-- Foreign-key columns (as `INTEGER`) — the foreign-key relationship is encoded in column naming, not as `FOREIGN KEY` constraints
+- Foreign-key columns (as `INTEGER`) -- the foreign-key relationship is encoded in column naming, not as `FOREIGN KEY` constraints
 
 Foreign-key constraints are deliberately omitted so the seed data can be loaded in any order without having to topologically sort inserts.
 
@@ -32,7 +32,7 @@ db.exec(_SampleData.getSQLiteDDL());
 // Tables now exist
 let tmpTables = db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all();
 console.log('Tables:', tmpTables.map((pT) => pT.name));
-// → [ 'Customer', 'User', 'Book', 'BookAuthorJoin', 'Author', 'BookPrice', ... ]
+// -> [ 'Customer', 'User', 'Book', 'BookAuthorJoin', 'Author', 'BookPrice', ... ]
 ```
 
 ## Code Example: Basic Usage With `sql.js`
@@ -60,7 +60,7 @@ db.exec(_SampleData.getSQLiteDDL());
 db.exec(_SampleData.getSeedDataSQL());
 
 let tmpBookCount = db.prepare('SELECT COUNT(*) as n FROM Book').get();
-console.log('Books:', tmpBookCount.n); // → 22
+console.log('Books:', tmpBookCount.n); // -> 22
 ```
 
 ## Code Example: Bootstrap Only (Empty Schema)
@@ -71,7 +71,7 @@ If you want the schema structure but not the sample rows, just run the DDL witho
 const db = new Database(':memory:');
 db.exec(_SampleData.getSQLiteDDL());
 
-// Tables exist but are empty — good for writing your own data
+// Tables exist but are empty -- good for writing your own data
 ```
 
 ## Idempotence
@@ -94,6 +94,6 @@ Throws if `BookStore-CreateSQLiteTables.sql` is missing from the installed packa
 
 ## Related
 
-- [getSeedDataSQL](api-getSeedDataSQL.md) — the seed `INSERT` script to run after the DDL
-- [Seed Data](seed-data.md) — what the seed populates
-- [Schema Overview](schema.md) — ER diagram of the tables this DDL creates
+- [getSeedDataSQL](api-getSeedDataSQL.md) -- the seed `INSERT` script to run after the DDL
+- [Seed Data](seed-data.md) -- what the seed populates
+- [Schema Overview](schema.md) -- ER diagram of the tables this DDL creates

@@ -20,18 +20,18 @@ _Fable.serviceManager.addServiceType('RetoldSampleData', libRetoldSampleData);
 let _SampleData = _Fable.serviceManager.instantiateServiceProvider('RetoldSampleData');
 ```
 
-No options — the service is stateless and reads from its bundled schema directory.
+No options -- the service is stateless and reads from its bundled schema directory.
 
 ## 3. Inspect What's Available
 
 ```javascript
 console.log('Entities:', _SampleData.getEntityList());
-// → [ 'Customer', 'User', 'Book', 'BookAuthorJoin', 'Author', 'BookPrice',
+// -> [ 'Customer', 'User', 'Book', 'BookAuthorJoin', 'Author', 'BookPrice',
 //     'BookStore', 'BookStoreInventory', 'BookStoreEmployee',
 //     'BookStoreSale', 'BookStoreSaleItem', 'Review' ]
 
 console.log('Schema path:', _SampleData.getBookstoreSchemaPath());
-// → /path/to/node_modules/retold-sample-data/source/schemas/bookstore
+// -> /path/to/node_modules/retold-sample-data/source/schemas/bookstore
 ```
 
 ## 4. Pick Your Load Format
@@ -40,8 +40,8 @@ The module ships three parallel representations of the same data. You pick the o
 
 | Consumer | Method | Returns |
 |----------|--------|---------|
-| `meadow-graph-client`, `meadow-provider-offline` (combined form) | `getMeadowModel()` | Parsed `MeadowModel.json` — one object with `Tables: { ... }` |
-| `meadow.loadFromPackageObject()` (per-entity form) | `getMeadowSchema('Book')` | Parsed `MeadowSchemaBook.json` — ready for the meadow DAL |
+| `meadow-graph-client`, `meadow-provider-offline` (combined form) | `getMeadowModel()` | Parsed `MeadowModel.json` -- one object with `Tables: { ... }` |
+| `meadow.loadFromPackageObject()` (per-entity form) | `getMeadowSchema('Book')` | Parsed `MeadowSchemaBook.json` -- ready for the meadow DAL |
 | `retold-data-service` | `getSchema()` | Parsed `Schema.json` |
 | Raw SQLite bootstrap | `getSQLiteDDL()` + `getSeedDataSQL()` | Two raw SQL strings |
 
@@ -60,7 +60,7 @@ let _GraphClient = _Fable.serviceManager.instantiateServiceProvider('MeadowGraph
 // Solve a path from Book to Author (requires traversing BookAuthorJoin)
 let tmpSolution = _GraphClient.solveGraphConnections('Book', 'Author');
 console.log(tmpSolution.OptimalSolutionPath.EdgeAddress);
-// → 'Book-->BookAuthorJoin-->Author'
+// -> 'Book-->BookAuthorJoin-->Author'
 ```
 
 The graph client sees the entity connections right away and can resolve filters like `{Entity: 'Book', Filter: {'Author.Name': 'Dan Brown'}}` without any extra configuration.
@@ -112,7 +112,7 @@ let tmpBooks = db.prepare('SELECT IDBook, Title FROM Book').all();
 console.log(tmpBooks.slice(0, 5));
 ```
 
-The DDL is idempotent-ish (uses `CREATE TABLE IF NOT EXISTS` in some forms) but the seed SQL is not — don't run it twice against the same database or you'll get duplicate-key errors on the AutoIdentity columns.
+The DDL is idempotent-ish (uses `CREATE TABLE IF NOT EXISTS` in some forms) but the seed SQL is not -- don't run it twice against the same database or you'll get duplicate-key errors on the AutoIdentity columns.
 
 ## 8. What's In The Seed Data
 
@@ -135,8 +135,8 @@ Plenty for running graph-traversal tests, exercising dirty-tracking flows, or sc
 
 ## What to Explore Next
 
-- [Schema Overview](schema.md) — full entity-relationship Mermaid diagram and design notes
-- [Entity Reference](entities.md) — every column on every table
-- [Seed Data](seed-data.md) — what's in the seed and how to pick a subset
-- [Using With Meadow](using-with-meadow.md) — end-to-end integration recipes
-- [API Reference](api-reference.md) — per-method pages for every public function
+- [Schema Overview](schema.md) -- full entity-relationship Mermaid diagram and design notes
+- [Entity Reference](entities.md) -- every column on every table
+- [Seed Data](seed-data.md) -- what's in the seed and how to pick a subset
+- [Using With Meadow](using-with-meadow.md) -- end-to-end integration recipes
+- [API Reference](api-reference.md) -- per-method pages for every public function

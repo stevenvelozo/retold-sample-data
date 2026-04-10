@@ -8,7 +8,7 @@ Return the raw `INSERT` SQL for the bookstore seed data as a string. Run this af
 getSeedDataSQL()
 ```
 
-**Returns:** `string` — the raw SQL, ~30,000 lines, 76 `INSERT` statements across 10 tables.
+**Returns:** `string` -- the raw SQL, ~30,000 lines, 76 `INSERT` statements across 10 tables.
 
 ## What's in the Seed
 
@@ -56,7 +56,7 @@ initSqlJs().then((SQL) =>
     db.exec(_SampleData.getSeedDataSQL());
 
     let tmpResult = db.exec('SELECT COUNT(*) FROM BookAuthorJoin');
-    console.log('Book-author pairings:', tmpResult[0].values[0][0]);  // → 27
+    console.log('Book-author pairings:', tmpResult[0].values[0][0]);  // -> 27
 });
 ```
 
@@ -111,7 +111,7 @@ The parser is naïve (it assumes one `INSERT` per line) but works reliably becau
 
 ## Alternate Extended Seed
 
-The module also ships a smaller alternate seed at `BookStore-SeedData-Extended.sql` (11 `INSERT`s). It doesn't have a dedicated accessor — use `getBookstoreSchemaPath()` plus raw `fs.readFileSync`:
+The module also ships a smaller alternate seed at `BookStore-SeedData-Extended.sql` (11 `INSERT`s). It doesn't have a dedicated accessor -- use `getBookstoreSchemaPath()` plus raw `fs.readFileSync`:
 
 ```javascript
 const libFS = require('fs');
@@ -127,7 +127,7 @@ db.exec(tmpExtendedSQL);
 
 ## Feeding Into `meadow-provider-offline`
 
-`meadow-provider-offline` doesn't execute raw SQL — it expects records as JavaScript objects. To get the seed data into offline mode, load it into a temporary sql.js database first, then query out each entity:
+`meadow-provider-offline` doesn't execute raw SQL -- it expects records as JavaScript objects. To get the seed data into offline mode, load it into a temporary sql.js database first, then query out each entity:
 
 ```javascript
 const initSqlJs = require('sql.js');
@@ -164,6 +164,6 @@ Throws if `BookStore-SeedData.sql` is missing from the installed package. Never 
 
 ## Related
 
-- [getSQLiteDDL](api-getSQLiteDDL.md) — run this first to create the tables
-- [Seed Data](seed-data.md) — what each `INSERT` populates
-- [Using With Meadow](using-with-meadow.md) — integration recipes that use the seed
+- [getSQLiteDDL](api-getSQLiteDDL.md) -- run this first to create the tables
+- [Seed Data](seed-data.md) -- what each `INSERT` populates
+- [Using With Meadow](using-with-meadow.md) -- integration recipes that use the seed

@@ -1,6 +1,6 @@
 # getMeadowModel
 
-Read and parse `MeadowModel.json` — the combined 12-entity model in the format `meadow-graph-client` and `meadow-provider-offline`'s `DataModel` option expect.
+Read and parse `MeadowModel.json` -- the combined 12-entity model in the format `meadow-graph-client` and `meadow-provider-offline`'s `DataModel` option expect.
 
 ## Signature
 
@@ -16,7 +16,7 @@ getMeadowModel()
 2. Reads the file with `fs.readFileSync`
 3. Parses the JSON and returns the object
 
-No caching — every call re-reads from disk. Cache the result yourself if you call it repeatedly.
+No caching -- every call re-reads from disk. Cache the result yourself if you call it repeatedly.
 
 ## Return Shape
 
@@ -39,7 +39,7 @@ Each table's `Columns` array contains `{ Column, DataType, Size?, Join? }` entri
 ```javascript
 let tmpModel = _SampleData.getMeadowModel();
 console.log('Entities:', Object.keys(tmpModel.Tables));
-// → [ 'Customer', 'User', 'Book', 'BookAuthorJoin', 'Author', 'BookPrice',
+// -> [ 'Customer', 'User', 'Book', 'BookAuthorJoin', 'Author', 'BookPrice',
 //     'BookStore', 'BookStoreInventory', 'BookStoreEmployee',
 //     'BookStoreSale', 'BookStoreSaleItem', 'Review' ]
 ```
@@ -61,7 +61,7 @@ let _GraphClient = _Fable.serviceManager.instantiateServiceProvider('MeadowGraph
 // Graph traversal just works
 let tmpPath = _GraphClient.solveGraphConnections('Book', 'Author');
 console.log(tmpPath.OptimalSolutionPath.EdgeAddress);
-// → 'Book-->BookAuthorJoin-->Author'
+// -> 'Book-->BookAuthorJoin-->Author'
 ```
 
 ## Code Example: Inspecting a Specific Entity
@@ -75,7 +75,7 @@ console.log('Book columns:', tmpBookColumns.map((pCol) => pCol.Column));
 // Find the foreign key columns
 let tmpJoins = tmpBookColumns.filter((pCol) => pCol.Join);
 console.log('Book foreign keys:', tmpJoins);
-// → [ { Column: 'IDCustomer', DataType: 'Numeric', Size: 'int', Join: 'IDCustomer' } ]
+// -> [ { Column: 'IDCustomer', DataType: 'Numeric', Size: 'int', Join: 'IDCustomer' } ]
 ```
 
 ## Code Example: Counting Tables by Category
@@ -97,17 +97,17 @@ for (let tmpName of Object.keys(tmpModel.Tables))
 }
 
 console.log(tmpCategorized);
-// → { entities: [ 'Customer', 'User', 'Book', 'Author', ... ], joins: [ 'BookAuthorJoin' ] }
+// -> { entities: [ 'Customer', 'User', 'Book', 'Author', ... ], joins: [ 'BookAuthorJoin' ] }
 ```
 
 ## Difference from getSchema()
 
 `getMeadowModel()` reads `MeadowModel.json`. `getSchema()` reads `Schema.json`. They have the same top-level shape (`{ Tables: { ... } }`) but are intended for different consumers:
 
-- `MeadowModel.json` → `meadow-graph-client`, `meadow-provider-offline`
-- `Schema.json` → `retold-data-service`
+- `MeadowModel.json` -> `meadow-graph-client`, `meadow-provider-offline`
+- `Schema.json` -> `retold-data-service`
 
-In practice the files are very similar — they describe the same schema. Pick the one whose name matches the package you're feeding it to.
+In practice the files are very similar -- they describe the same schema. Pick the one whose name matches the package you're feeding it to.
 
 ## Errors
 
@@ -119,7 +119,7 @@ Both are essentially "you broke the package" errors, not runtime user errors.
 
 ## Related
 
-- [getSchema](api-getSchema.md) — the alternate `Schema.json` form
-- [getMeadowSchema](api-getMeadowSchema.md) — per-entity version for `meadow.loadFromPackageObject()`
-- [getEntityList](api-getEntityList.md) — just the entity names without the full model
-- [Schema Overview](schema.md) — ER diagram of what's inside the returned object
+- [getSchema](api-getSchema.md) -- the alternate `Schema.json` form
+- [getMeadowSchema](api-getMeadowSchema.md) -- per-entity version for `meadow.loadFromPackageObject()`
+- [getEntityList](api-getEntityList.md) -- just the entity names without the full model
+- [Schema Overview](schema.md) -- ER diagram of what's inside the returned object

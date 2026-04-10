@@ -1,6 +1,6 @@
 # Using With Meadow
 
-End-to-end recipes for loading the bookstore schema into the three downstream consumers: `meadow` (raw DAL), `meadow-graph-client` (filter-and-traverse queries), and `meadow-provider-offline` (browser-side offline mode). Each recipe is self-contained — pick the one that matches your use case and copy the whole thing.
+End-to-end recipes for loading the bookstore schema into the three downstream consumers: `meadow` (raw DAL), `meadow-graph-client` (filter-and-traverse queries), and `meadow-provider-offline` (browser-side offline mode). Each recipe is self-contained -- pick the one that matches your use case and copy the whole thing.
 
 ## Recipe 1: Raw Meadow DAL
 
@@ -35,7 +35,7 @@ tmpBookDAL.doReads('FBV~Genre~LK~Fiction', 0, 10,
     });
 ```
 
-The per-entity loading pattern is a bit verbose if you want everything — just loop:
+The per-entity loading pattern is a bit verbose if you want everything -- just loop:
 
 ```javascript
 let tmpDALs = {};
@@ -77,9 +77,9 @@ let _GraphClient = _Fable.serviceManager.instantiateServiceProvider('MeadowGraph
 // Solve a path from Book to Author
 let tmpSolution = _GraphClient.solveGraphConnections('Book', 'Author');
 console.log(tmpSolution.OptimalSolutionPath.EdgeAddress);
-// → 'Book-->BookAuthorJoin-->Author'
+// -> 'Book-->BookAuthorJoin-->Author'
 
-// Run an actual query — "books by author with IDAuthor = 107"
+// Run an actual query -- "books by author with IDAuthor = 107"
 _GraphClient.get(
     {
         Entity: 'Book',
@@ -92,7 +92,7 @@ _GraphClient.get(
     {
         if (pError) return console.error(pError);
         console.log('Required entities:', pCompiledGraphRequest.ParsedFilter.RequiredEntities);
-        // → ['Book', 'Author']
+        // -> ['Book', 'Author']
     });
 ```
 
@@ -102,13 +102,13 @@ Thanks to the seed data's shape, these queries all return meaningful results:
 
 | Query | What the Solver Does |
 |-------|----------------------|
-| `{Entity: 'Book', Filter: {'Author.Name': 'Dan Brown'}}` | Walks `Book → BookAuthorJoin → Author` |
-| `{Entity: 'Author', Filter: {'Book.Genre': 'Mystery'}}` | Walks `Author → BookAuthorJoin → Book` |
-| `{Entity: 'Book', Filter: {'BookPrice.Discountable': true}}` | Walks `Book → BookPrice` (direct incoming) |
-| `{Entity: 'BookStoreSale', Filter: {'Book.Title': 'The Da Vinci Code'}}` | Walks `BookStoreSale → BookStoreSaleItem → Book` |
-| `{Entity: 'Review', Filter: {'Book.Genre': 'Fiction'}}` | Walks `Review → Book` |
+| `{Entity: 'Book', Filter: {'Author.Name': 'Dan Brown'}}` | Walks `Book -> BookAuthorJoin -> Author` |
+| `{Entity: 'Author', Filter: {'Book.Genre': 'Mystery'}}` | Walks `Author -> BookAuthorJoin -> Book` |
+| `{Entity: 'Book', Filter: {'BookPrice.Discountable': true}}` | Walks `Book -> BookPrice` (direct incoming) |
+| `{Entity: 'BookStoreSale', Filter: {'Book.Title': 'The Da Vinci Code'}}` | Walks `BookStoreSale -> BookStoreSaleItem -> Book` |
+| `{Entity: 'Review', Filter: {'Book.Genre': 'Fiction'}}` | Walks `Review -> Book` |
 
-The `StockingAssociate` column on `BookStoreInventory` is the one case where automatic traversal fails — see [Schema Overview § Design Decisions](schema.md#design-decisions-worth-knowing). To get the solver to pick that path use a hint:
+The `StockingAssociate` column on `BookStoreInventory` is the one case where automatic traversal fails -- see [Schema Overview § Design Decisions](schema.md#design-decisions-worth-knowing). To get the solver to pick that path use a hint:
 
 ```javascript
 _GraphClient.get(
@@ -216,9 +216,9 @@ function seedOfflineFromSQL(pOffline, pSampleData, fCallback)
 }
 ```
 
-After this runs, your application code can call `_Fable.RestClient.getJSON('/1.0/Books/0/10', ...)` and the request never touches the network — it's routed through the offline provider's in-process Orator IPC layer and served from SQLite.
+After this runs, your application code can call `_Fable.RestClient.getJSON('/1.0/Books/0/10', ...)` and the request never touches the network -- it's routed through the offline provider's in-process Orator IPC layer and served from SQLite.
 
-## Recipe 4: Combined Stack — Graph Client + Offline Provider + Sample Data
+## Recipe 4: Combined Stack -- Graph Client + Offline Provider + Sample Data
 
 All three working together. This is what `retold-harness` does for its offline test mode:
 
@@ -254,7 +254,7 @@ _Offline.initializeAsync(() =>
         () =>
         {
             _Offline.connect(_Fable.RestClient);
-            // Seed data loading omitted for brevity — same as Recipe 3
+            // Seed data loading omitted for brevity -- same as Recipe 3
 
             // Now the graph client can compile queries against the same schema
             // the offline provider serves; when the graph client's data request
@@ -290,11 +290,11 @@ console.log(_SampleData.getSeedDataSQL());       // the raw seed
 console.log(_SampleData.getBookstoreSchemaPath()); // the folder on disk
 ```
 
-The service extends `fable-serviceproviderbase` but doesn't actually call fable for anything except its logger. Passing `{}` for fable and `{}` for options is enough for the read methods to work. (This isn't guaranteed — it's a side effect of the current implementation — so if you want robustness, use a real Fable.)
+The service extends `fable-serviceproviderbase` but doesn't actually call fable for anything except its logger. Passing `{}` for fable and `{}` for options is enough for the read methods to work. (This isn't guaranteed -- it's a side effect of the current implementation -- so if you want robustness, use a real Fable.)
 
 ## Related
 
-- [Quick Start](quickstart.md) — the fast walkthrough without all the recipes
-- [Schema Overview](schema.md) — entity relationships
-- [Seed Data](seed-data.md) — what's in the rows these recipes load
-- [API Reference](api-reference.md) — the methods these recipes call
+- [Quick Start](quickstart.md) -- the fast walkthrough without all the recipes
+- [Schema Overview](schema.md) -- entity relationships
+- [Seed Data](seed-data.md) -- what's in the rows these recipes load
+- [API Reference](api-reference.md) -- the methods these recipes call

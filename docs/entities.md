@@ -5,12 +5,12 @@ Complete column listing for every entity in the bookstore schema. For the high-l
 All non-join entities carry the standard audit columns:
 
 - `CreateDate` (DateTime)
-- `CreatingIDUser` (Numeric) — lifecycle-set
+- `CreatingIDUser` (Numeric) -- lifecycle-set
 - `UpdateDate` (DateTime)
-- `UpdatingIDUser` (Numeric) — lifecycle-set
+- `UpdatingIDUser` (Numeric) -- lifecycle-set
 - `Deleted` (Boolean, 0/1)
 - `DeleteDate` (DateTime)
-- `DeletingIDUser` (Numeric) — lifecycle-set
+- `DeletingIDUser` (Numeric) -- lifecycle-set
 
 These are elided from the column tables below for readability. Join tables (`BookAuthorJoin`) do not carry the audit columns.
 
@@ -43,14 +43,14 @@ Identity table. Referenced by `Author`, `BookStoreEmployee`, `BookStoreSale`, `B
 | Column | Type | Notes |
 |--------|------|-------|
 | `IDUser` | ID | Primary key |
-| `GUIDUser` | Numeric(int) | *Known-weird — declared Numeric instead of GUID for legacy reasons* |
+| `GUIDUser` | Numeric(int) | *Known-weird -- declared Numeric instead of GUID for legacy reasons* |
 | `LoginID` | String(128) | Username |
-| `Password` | String(255) | *Demo data — never store real passwords like this* |
+| `Password` | String(255) | *Demo data -- never store real passwords like this* |
 | `NameFirst` | String(128) | |
 | `NameLast` | String(128) | |
 | `FullName` | String(255) | Denormalized full name |
 | `Config` | String(64) | Per-user config key |
-| `IDCustomer` | Numeric | FK → `Customer.IDCustomer` |
+| `IDCustomer` | Numeric | FK -> `Customer.IDCustomer` |
 | `Email` | String(200) | |
 | `Phone` | String(32) | |
 | `Address` | String | |
@@ -78,7 +78,7 @@ The catalog entry for a book. The most-referenced entity in the schema.
 | `Language` | String(12) | e.g. `'en'`, `'es'` |
 | `ImageURL` | String(254) | Book cover URL |
 | `PublicationYear` | Numeric | |
-| `IDCustomer` | Numeric | FK → `Customer.IDCustomer` |
+| `IDCustomer` | Numeric | FK -> `Customer.IDCustomer` |
 
 Outgoing references: none. Incoming references: `BookAuthorJoin`, `BookPrice`, `BookStoreInventory`, `BookStoreSaleItem`, `Review`.
 
@@ -93,8 +93,8 @@ Author identity. Optionally linked to a `User` identity via `IDUser`.
 | `IDAuthor` | ID | Primary key |
 | `GUIDAuthor` | GUID | |
 | `Name` | String(200) | Full author name |
-| `IDUser` | Numeric | Optional FK → `User.IDUser` |
-| `IDCustomer` | Numeric | FK → `Customer.IDCustomer` |
+| `IDUser` | Numeric | Optional FK -> `User.IDUser` |
+| `IDCustomer` | Numeric | FK -> `Customer.IDCustomer` |
 
 Outgoing references: `User`. Incoming references: `BookAuthorJoin`.
 
@@ -108,13 +108,13 @@ Many-to-many bridge between `Book` and `Author`. One row per (book, author) pair
 |--------|------|-------|
 | `IDBookAuthorJoin` | ID | Primary key |
 | `GUIDBookAuthorJoin` | GUID | |
-| `IDBook` | Numeric | FK → `Book.IDBook` |
-| `IDAuthor` | Numeric | FK → `Author.IDAuthor` |
-| `IDCustomer` | Numeric | FK → `Customer.IDCustomer` |
+| `IDBook` | Numeric | FK -> `Book.IDBook` |
+| `IDAuthor` | Numeric | FK -> `Author.IDAuthor` |
+| `IDCustomer` | Numeric | FK -> `Customer.IDCustomer` |
 
 Seed data contains 27 rows joining the 22 books to the 13 authors, with some books having multiple co-authors.
 
-**No audit columns** — join tables are write-once.
+**No audit columns** -- join tables are write-once.
 
 ---
 
@@ -131,8 +131,8 @@ Historical and active pricing for a book. One book can have many `BookPrice` rec
 | `EndDate` | DateTime | When this price stopped being active (null = current) |
 | `Discountable` | Boolean | Whether the price is eligible for promo discounts |
 | `CouponCode` | String(16) | Optional coupon required to get this price |
-| `IDBook` | Numeric | FK → `Book.IDBook` |
-| `IDCustomer` | Numeric | FK → `Customer.IDCustomer` |
+| `IDBook` | Numeric | FK -> `Book.IDBook` |
+| `IDCustomer` | Numeric | FK -> `Customer.IDCustomer` |
 
 Outgoing: `Book`. Incoming: `BookStoreInventory`, `BookStoreSaleItem`.
 
@@ -155,7 +155,7 @@ A physical or online retail location.
 | `Country` | String | |
 | `Phone` | String | |
 | `Email` | String | |
-| `IDCustomer` | Numeric | FK → `Customer.IDCustomer` |
+| `IDCustomer` | Numeric | FK -> `Customer.IDCustomer` |
 
 Outgoing: `Customer`. Incoming: `BookStoreEmployee`, `BookStoreInventory`, `BookStoreSale`.
 
@@ -172,13 +172,13 @@ Stock level for a specific book at a specific store at a specific date. Also rec
 | `StockDate` | DateTime | When the stock count was taken |
 | `BookCount` | Numeric | Current stock count |
 | `AggregateBookCount` | Numeric | Running total / aggregate count |
-| `IDBook` | Numeric | FK → `Book.IDBook` |
-| `IDBookStore` | Numeric | FK → `BookStore.IDBookStore` |
-| `IDBookPrice` | Numeric | FK → `BookPrice.IDBookPrice` (which price was in effect) |
-| `StockingAssociate` | Numeric | FK → `User.IDUser` *(non-standard column name)* |
-| `IDCustomer` | Numeric | FK → `Customer.IDCustomer` |
+| `IDBook` | Numeric | FK -> `Book.IDBook` |
+| `IDBookStore` | Numeric | FK -> `BookStore.IDBookStore` |
+| `IDBookPrice` | Numeric | FK -> `BookPrice.IDBookPrice` (which price was in effect) |
+| `StockingAssociate` | Numeric | FK -> `User.IDUser` *(non-standard column name)* |
+| `IDCustomer` | Numeric | FK -> `Customer.IDCustomer` |
 
-**Note the `StockingAssociate` oddity:** this is a foreign key to `User` but the column is not named `IDUser`. This is deliberate — it gives `meadow-graph-client`'s solver a test case for hints and manual-path overrides when automatic name-matching fails. See [Schema Overview § Design Decisions](schema.md#design-decisions-worth-knowing).
+**Note the `StockingAssociate` oddity:** this is a foreign key to `User` but the column is not named `IDUser`. This is deliberate -- it gives `meadow-graph-client`'s solver a test case for hints and manual-path overrides when automatic name-matching fails. See [Schema Overview § Design Decisions](schema.md#design-decisions-worth-knowing).
 
 ---
 
@@ -194,15 +194,15 @@ Ties a `User` identity to a `BookStore` as an employee, with hire dates and acti
 | `HireDate` | DateTime | |
 | `TerminationDate` | DateTime | Null if still employed |
 | `IsActive` | Boolean | Active-employee flag |
-| `IDUser` | Numeric | FK → `User.IDUser` |
-| `IDBookStore` | Numeric | FK → `BookStore.IDBookStore` |
-| `IDCustomer` | Numeric | FK → `Customer.IDCustomer` |
+| `IDUser` | Numeric | FK -> `User.IDUser` |
+| `IDBookStore` | Numeric | FK -> `BookStore.IDBookStore` |
+| `IDCustomer` | Numeric | FK -> `Customer.IDCustomer` |
 
 ---
 
 ## BookStoreSale
 
-A sale transaction — one sale per customer per checkout, with a total and a payment method.
+A sale transaction -- one sale per customer per checkout, with a total and a payment method.
 
 | Column | Type | Notes |
 |--------|------|-------|
@@ -212,9 +212,9 @@ A sale transaction — one sale per customer per checkout, with a total and a pa
 | `TotalAmount` | Decimal | Sum of all `BookStoreSaleItem.LineTotal` for this sale |
 | `PaymentMethod` | String | e.g. `'Cash'`, `'CreditCard'`, `'Gift Card'` |
 | `TransactionID` | String | External payment processor reference |
-| `IDBookStore` | Numeric | FK → `BookStore.IDBookStore` (which store rang it up) |
-| `IDUser` | Numeric | FK → `User.IDUser` (the cashier) |
-| `IDCustomer` | Numeric | FK → `Customer.IDCustomer` |
+| `IDBookStore` | Numeric | FK -> `BookStore.IDBookStore` (which store rang it up) |
+| `IDUser` | Numeric | FK -> `User.IDUser` (the cashier) |
+| `IDCustomer` | Numeric | FK -> `Customer.IDCustomer` |
 
 Outgoing: `BookStore`, `User`. Incoming: `BookStoreSaleItem`.
 
@@ -222,7 +222,7 @@ Outgoing: `BookStore`, `User`. Incoming: `BookStoreSaleItem`.
 
 ## BookStoreSaleItem
 
-One line item on a sale — a specific book at a specific price in a specific quantity. Multiple sale items per sale.
+One line item on a sale -- a specific book at a specific price in a specific quantity. Multiple sale items per sale.
 
 | Column | Type | Notes |
 |--------|------|-------|
@@ -231,10 +231,10 @@ One line item on a sale — a specific book at a specific price in a specific qu
 | `Quantity` | Numeric | Number of copies sold in this line |
 | `UnitPrice` | Decimal | Price per copy at time of sale (snapshotted) |
 | `LineTotal` | Decimal | `Quantity × UnitPrice` |
-| `IDBookStoreSale` | Numeric | FK → `BookStoreSale.IDBookStoreSale` |
-| `IDBook` | Numeric | FK → `Book.IDBook` |
-| `IDBookPrice` | Numeric | FK → `BookPrice.IDBookPrice` (which price record was used) |
-| `IDCustomer` | Numeric | FK → `Customer.IDCustomer` |
+| `IDBookStoreSale` | Numeric | FK -> `BookStoreSale.IDBookStoreSale` |
+| `IDBook` | Numeric | FK -> `Book.IDBook` |
+| `IDBookPrice` | Numeric | FK -> `BookPrice.IDBookPrice` (which price record was used) |
+| `IDCustomer` | Numeric | FK -> `Customer.IDCustomer` |
 
 Outgoing: `BookStoreSale`, `Book`, `BookPrice`. Incoming: none.
 
@@ -250,9 +250,9 @@ A reader's rating and written review for a specific book.
 | `GUIDReview` | GUID | |
 | `Text` | Text | Free-form review body |
 | `Rating` | Numeric | Numeric rating (scale not enforced by the schema) |
-| `IDBook` | Numeric | FK → `Book.IDBook` |
-| `IDUser` | Numeric | FK → `User.IDUser` (reviewer) |
-| `IDCustomer` | Numeric | FK → `Customer.IDCustomer` |
+| `IDBook` | Numeric | FK -> `Book.IDBook` |
+| `IDUser` | Numeric | FK -> `User.IDUser` (reviewer) |
+| `IDCustomer` | Numeric | FK -> `Customer.IDCustomer` |
 
 ---
 
@@ -269,10 +269,10 @@ A reader's rating and written review for a specific book.
 | `DateTime` | `TEXT` | ISO 8601 strings |
 | `Boolean` | `INTEGER` | 0 or 1 |
 
-See [meadow-provider-offline's entity-schema doc](https://github.com/stevenvelozo/meadow-provider-offline/blob/master/docs/entity-schema.md) for the complete meadow type → SQLite type mapping.
+See [meadow-provider-offline's entity-schema doc](https://github.com/stevenvelozo/meadow-provider-offline/blob/master/docs/entity-schema.md) for the complete meadow type -> SQLite type mapping.
 
 ## Related
 
-- [Schema Overview](schema.md) — Mermaid ER diagram and design principles
-- [Seed Data](seed-data.md) — what's in the sample rows
-- [Using With Meadow](using-with-meadow.md) — integration walkthroughs
+- [Schema Overview](schema.md) -- Mermaid ER diagram and design principles
+- [Seed Data](seed-data.md) -- what's in the sample rows
+- [Using With Meadow](using-with-meadow.md) -- integration walkthroughs

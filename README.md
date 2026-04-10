@@ -2,7 +2,7 @@
 
 > A realistic bookstore schema and seed data set for testing and developing against the Retold ecosystem
 
-Retold Sample Data is a Fable service provider that ships a complete 12-entity bookstore schema (books, authors, customers, sales, inventory, reviews, and the join tables that wire them together) plus thousands of pre-populated seed rows. Every file the rest of the Retold ecosystem needs — `MeadowModel.json`, per-entity `MeadowSchemaFoo.json`, a full SQLite DDL file, and an extensive `INSERT` seed — is bundled into the package and exposed through a tiny API so consumers can load them without touching the filesystem directly.
+Retold Sample Data is a Fable service provider that ships a complete 12-entity bookstore schema (books, authors, customers, sales, inventory, reviews, and the join tables that wire them together) plus thousands of pre-populated seed rows. Every file the rest of the Retold ecosystem needs -- `MeadowModel.json`, per-entity `MeadowSchemaFoo.json`, a full SQLite DDL file, and an extensive `INSERT` seed -- is bundled into the package and exposed through a tiny API so consumers can load them without touching the filesystem directly.
 
 This is the canonical test fixture used throughout the Retold test harness. `retold-harness`, `meadow-graph-client`'s test suite, and `meadow-provider-offline`'s integration tests all read from here, which means any query, traversal, or sync behavior you demonstrate against this schema will look familiar to anyone who has worked with Retold. It's also a reasonable starting point if you're learning the Meadow schema format and want something non-trivial to play with.
 
@@ -32,7 +32,7 @@ let _SampleData = _Fable.serviceManager.instantiateServiceProvider('RetoldSample
 // The combined MeadowModel (ready for meadow-graph-client / meadow-provider-offline)
 let tmpModel = _SampleData.getMeadowModel();
 console.log('Entities:', Object.keys(tmpModel.Tables));
-// → [ 'Customer', 'User', 'Book', 'BookAuthorJoin', 'Author', 'BookPrice',
+// -> [ 'Customer', 'User', 'Book', 'BookAuthorJoin', 'Author', 'BookPrice',
 //     'BookStore', 'BookStoreInventory', 'BookStoreEmployee',
 //     'BookStoreSale', 'BookStoreSaleItem', 'Review' ]
 
@@ -56,10 +56,10 @@ npm install retold-sample-data
 
 ```
 source/schemas/bookstore/
-├── MeadowModel.json                            — combined model (all 12 tables)
-├── Schema.json                                 — full RetoldDataService schema
+├── MeadowModel.json                            -- combined model (all 12 tables)
+├── Schema.json                                 -- full RetoldDataService schema
 ├── meadow/
-│   ├── MeadowSchemaAuthor.json                — per-entity package schemas
+│   ├── MeadowSchemaAuthor.json                -- per-entity package schemas
 │   ├── MeadowSchemaBook.json
 │   ├── MeadowSchemaBookAuthorJoin.json
 │   ├── MeadowSchemaBookPrice.json
@@ -72,9 +72,9 @@ source/schemas/bookstore/
 │   ├── MeadowSchemaReview.json
 │   └── MeadowSchemaUser.json
 └── sqlite_create/
-    ├── BookStore-CreateSQLiteTables.sql       — full DDL (222 lines)
-    ├── BookStore-SeedData.sql                 — main seed (76 INSERTs, ~30k lines)
-    └── BookStore-SeedData-Extended.sql        — alternate seed (11 INSERTs)
+    ├── BookStore-CreateSQLiteTables.sql       -- full DDL (222 lines)
+    ├── BookStore-SeedData.sql                 -- main seed (76 INSERTs, ~30k lines)
+    └── BookStore-SeedData-Extended.sql        -- alternate seed (11 INSERTs)
 ```
 
 ## API
@@ -95,23 +95,23 @@ Every method is synchronous and reads from disk (inside the package) on each cal
 
 Full documentation lives in the [`docs`](./docs) folder and is served via [pict-docuserve](https://github.com/stevenvelozo/pict-docuserve):
 
-- [Overview](docs/README.md) — what the module ships and where each file lives
-- [Quick Start](docs/quickstart.md) — three-minute walkthrough from install to first query
-- [Schema Overview](docs/schema.md) — full entity-relationship Mermaid diagram and design notes
-- [Entity Reference](docs/entities.md) — every entity, every column, every join
-- [Seed Data](docs/seed-data.md) — what's in the seed SQL and how to pick a subset
-- [Using With Meadow](docs/using-with-meadow.md) — end-to-end integration with `meadow-graph-client` and `meadow-provider-offline`
-- [API Reference](docs/api-reference.md) — one page per public method
+- [Overview](docs/README.md) -- what the module ships and where each file lives
+- [Quick Start](docs/quickstart.md) -- three-minute walkthrough from install to first query
+- [Schema Overview](docs/schema.md) -- full entity-relationship Mermaid diagram and design notes
+- [Entity Reference](docs/entities.md) -- every entity, every column, every join
+- [Seed Data](docs/seed-data.md) -- what's in the seed SQL and how to pick a subset
+- [Using With Meadow](docs/using-with-meadow.md) -- end-to-end integration with `meadow-graph-client` and `meadow-provider-offline`
+- [API Reference](docs/api-reference.md) -- one page per public method
 
 ## Related Packages
 
-- [meadow](https://github.com/stevenvelozo/meadow) — data access and ORM the schema targets
-- [meadow-graph-client](https://github.com/stevenvelozo/meadow-graph-client) — graph queries over the schema in this module
-- [meadow-provider-offline](https://github.com/stevenvelozo/meadow-provider-offline) — offline provider that loads this schema in the browser
-- [meadow-connection-sqlite-browser](https://github.com/stevenvelozo/meadow-connection-sqlite-browser) — browser SQLite connection used with the DDL from this module
-- [retold-harness](https://github.com/stevenvelozo/retold-harness) — the test harness this module exists to feed
-- [retold-data-service](https://github.com/stevenvelozo/retold-data-service) — consumes the `Schema.json` form
-- [fable](https://github.com/stevenvelozo/fable) — application services framework
+- [meadow](https://github.com/stevenvelozo/meadow) -- data access and ORM the schema targets
+- [meadow-graph-client](https://github.com/stevenvelozo/meadow-graph-client) -- graph queries over the schema in this module
+- [meadow-provider-offline](https://github.com/stevenvelozo/meadow-provider-offline) -- offline provider that loads this schema in the browser
+- [meadow-connection-sqlite-browser](https://github.com/stevenvelozo/meadow-connection-sqlite-browser) -- browser SQLite connection used with the DDL from this module
+- [retold-harness](https://github.com/stevenvelozo/retold-harness) -- the test harness this module exists to feed
+- [retold-data-service](https://github.com/stevenvelozo/retold-data-service) -- consumes the `Schema.json` form
+- [fable](https://github.com/stevenvelozo/fable) -- application services framework
 
 ## License
 

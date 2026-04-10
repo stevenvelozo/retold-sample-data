@@ -14,15 +14,15 @@ _Fable.serviceManager.addServiceType('RetoldSampleData', libRetoldSampleData);
 let _SampleData = _Fable.serviceManager.instantiateServiceProvider('RetoldSampleData');
 ```
 
-No options — the service is stateless and reads from its bundled schema directory on demand.
+No options -- the service is stateless and reads from its bundled schema directory on demand.
 
 ## Methods
 
 | Method | Purpose | Details |
 |--------|---------|---------|
 | [`getBookstoreSchemaPath()`](api-getBookstoreSchemaPath.md) | Return the absolute path to the schema directory inside the package | [Details](api-getBookstoreSchemaPath.md) |
-| [`getMeadowModel()`](api-getMeadowModel.md) | Parse and return `MeadowModel.json` — the combined 12-entity model | [Details](api-getMeadowModel.md) |
-| [`getSchema()`](api-getSchema.md) | Parse and return `Schema.json` — the `retold-data-service` variant | [Details](api-getSchema.md) |
+| [`getMeadowModel()`](api-getMeadowModel.md) | Parse and return `MeadowModel.json` -- the combined 12-entity model | [Details](api-getMeadowModel.md) |
+| [`getSchema()`](api-getSchema.md) | Parse and return `Schema.json` -- the `retold-data-service` variant | [Details](api-getSchema.md) |
 | [`getMeadowSchema(pEntityName)`](api-getMeadowSchema.md) | Parse and return an individual per-entity `MeadowSchema<Name>.json` | [Details](api-getMeadowSchema.md) |
 | [`getEntityList()`](api-getEntityList.md) | Return the array of entity names (keys of `MeadowModel.Tables`) | [Details](api-getEntityList.md) |
 | [`getSQLiteDDL()`](api-getSQLiteDDL.md) | Return the raw `CREATE TABLE` SQL as a string | [Details](api-getSQLiteDDL.md) |
@@ -35,7 +35,7 @@ No options — the service is stateless and reads from its bundled schema direct
 | `getBookstoreSchemaPath()` | `string` (absolute path) |
 | `getMeadowModel()` | `object` with `Tables: { EntityName: { TableName, Domain, Columns: [...] } }` |
 | `getSchema()` | `object` with `Tables: { EntityName: { TableName, Domain, Columns: [...] } }` |
-| `getMeadowSchema(name)` | `object` in meadow package format — `{ Scope, DefaultIdentifier, Schema: [...], DefaultObject, JsonSchema, Authorization }` |
+| `getMeadowSchema(name)` | `object` in meadow package format -- `{ Scope, DefaultIdentifier, Schema: [...], DefaultObject, JsonSchema, Authorization }` |
 | `getEntityList()` | `string[]` of 12 entity names |
 | `getSQLiteDDL()` | `string` (raw SQL) |
 | `getSeedDataSQL()` | `string` (raw SQL) |
@@ -80,22 +80,22 @@ const _Fixture = {
 };
 ```
 
-That's cheap — the files are small (the biggest is the ~30K-line seed SQL) and parsing JSON is fast. But re-reading them from disk on every call is still wasted work if you know you'll call the same method repeatedly.
+That's cheap -- the files are small (the biggest is the ~30K-line seed SQL) and parsing JSON is fast. But re-reading them from disk on every call is still wasted work if you know you'll call the same method repeatedly.
 
 ## Error Handling
 
 All the JSON-parsing methods throw if the underlying file is missing or malformed:
 
-- `getMeadowModel()` — throws if `MeadowModel.json` is missing or invalid JSON
-- `getSchema()` — throws if `Schema.json` is missing or invalid JSON
-- `getMeadowSchema(name)` — throws if `MeadowSchema<name>.json` is missing or invalid JSON
+- `getMeadowModel()` -- throws if `MeadowModel.json` is missing or invalid JSON
+- `getSchema()` -- throws if `Schema.json` is missing or invalid JSON
+- `getMeadowSchema(name)` -- throws if `MeadowSchema<name>.json` is missing or invalid JSON
 
 The SQL-returning methods throw if the underlying SQL file is missing:
 
-- `getSQLiteDDL()` — throws if `BookStore-CreateSQLiteTables.sql` is missing
-- `getSeedDataSQL()` — throws if `BookStore-SeedData.sql` is missing
+- `getSQLiteDDL()` -- throws if `BookStore-CreateSQLiteTables.sql` is missing
+- `getSeedDataSQL()` -- throws if `BookStore-SeedData.sql` is missing
 
-In the normal case — you've installed the package via npm and haven't edited the `node_modules/retold-sample-data/source/schemas/` directory — these throws never happen. The files are part of the package and shipped on every install.
+In the normal case -- you've installed the package via npm and haven't edited the `node_modules/retold-sample-data/source/schemas/` directory -- these throws never happen. The files are part of the package and shipped on every install.
 
 ## Stateless vs Fable
 
@@ -107,10 +107,10 @@ const _SampleData = new libRetoldSampleData({}, {});
 _SampleData.getBookstoreSchemaPath();  // works
 ```
 
-This isn't formally supported — it's a side effect of the current implementation that the read methods don't depend on Fable features. If you need a robust integration, pass a real Fable instance.
+This isn't formally supported -- it's a side effect of the current implementation that the read methods don't depend on Fable features. If you need a robust integration, pass a real Fable instance.
 
 ## Related
 
-- [Quick Start](quickstart.md) — the fast walkthrough
-- [Schema Overview](schema.md) — what the data looks like
-- [Using With Meadow](using-with-meadow.md) — integration recipes that call these methods
+- [Quick Start](quickstart.md) -- the fast walkthrough
+- [Schema Overview](schema.md) -- what the data looks like
+- [Using With Meadow](using-with-meadow.md) -- integration recipes that call these methods

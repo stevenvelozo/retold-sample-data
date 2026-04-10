@@ -4,7 +4,7 @@
 
 - MeadowModel.json, per-entity package schemas, SQLite DDL, and seed SQL in one package
 - 12 entities covering customers, users, books, authors, stores, inventory, sales, and reviews
-- Multi-tenant ready — every entity carries `IDCustomer`
+- Multi-tenant ready -- every entity carries `IDCustomer`
 - First-class Fable service provider with a seven-method API
 - Used by meadow-graph-client, meadow-provider-offline, and retold-harness tests
 
