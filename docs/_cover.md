@@ -1,4 +1,4 @@
-# Retold Sample Data <small>1</small>
+# Retold Sample Data
 
 > A realistic 12-entity bookstore schema and thousands of seed rows for testing and developing against the Retold ecosystem
 
