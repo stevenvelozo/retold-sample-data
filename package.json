@@ -46,8 +46,8 @@
 	"devDependencies": {
 		"chai": "^6.2.2",
 		"indoctrinate": "^1.0.10",
-		"pict-docuserve": "^0.0.32",
-		"quackage": "^1.0.59"
+		"pict-docuserve": "^0.1.1",
+		"quackage": "^1.1.0"
 	},
 	"author": "steven velozo <steven@velozo.com>",
 	"license": "MIT",
